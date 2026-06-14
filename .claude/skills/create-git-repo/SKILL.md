@@ -17,8 +17,7 @@ description: Initialize a git repository for the current project and optionally 
   - 기존 `.git` 삭제 (커밋/리모트가 있으면 손실 위험 → 먼저 `git log`·`git remote`로 확인하고 알린다)
   - **공개(public) 리포 생성** — 이름과 공개범위를 사용자가 명시적으로 말하기 전에는 만들지 않는다
     (auto 모드 분류기도 이를 차단하므로, 추측으로 진행하지 말 것)
-- 커밋 메시지 말미에는 다음을 붙인다:
-  `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
+- 커밋 메시지는 `.claude/CLAUDE.md`의 커밋 규칙(Conventional Commits)을 따른다.
 
 ## 절차
 
@@ -44,9 +43,7 @@ rm -rf .git && git init -b main
 ```bash
 git add -A
 git status --short
-git commit -m "<요약>
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+git commit -m "<type>: <요약>"   # Conventional Commits
 ```
 
 ### 5. GitHub 원격 (사용자 명시 승인 필요)
