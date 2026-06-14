@@ -1,0 +1,26 @@
+# OS / IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/
+
+# Java / Gradle / Maven
+build/
+.gradle/
+target/
+*.class
+
+# CLI build artifacts
+dist/
+bin/
+
+# Local upload storage / runtime data
+storage/
+uploads/
+*.log
+.env
+.env.local
+
+# Test / coverage
+coverage/
+*.coverage
