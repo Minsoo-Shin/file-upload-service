@@ -8,7 +8,10 @@ Claude가 열 때만 컨텍스트에 로드된다. (전역 규칙은 `.claude/CL
 이 프로젝트에 맞게 정리**한 것이다 (없는 공통 규칙/스킬 참조 제거, 파일 업로드 보안 항목 추가).
 이후 변경은 이 repo의 규칙으로 직접 관리한다.
 
+레이어: `common/`(언어 무관 기준) + `java/`(언어 특화). 충돌 시 언어 특화가 우선.
+
 ## 목록
+- `common/code-review.md` — 리뷰 기준·체크리스트·심각도 (실행은 빌트인 `/code-review`)
 - `java/coding-style.md` — 포맷·불변성·네이밍·모던 자바·Optional·예외·스트림
 - `java/patterns.md` — Repository/Service/생성자 주입/DTO/Builder/Sealed
 - `java/security.md` — 시크릿·SQLi·입력검증·**파일 업로드 보안**·에러 메시지

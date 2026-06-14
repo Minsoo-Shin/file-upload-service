@@ -24,7 +24,7 @@
 - 현재 스킬: `create-git-repo`, `springboot-tdd`, `springboot-patterns`.
 - 현재 커맨드(`.claude/commands/`): `plan-prd` (PRD → `docs/PRD.md`), `plan` (마일스톤 구현 계획 → `docs/plans/`).
 - 워크플로: `/plan-prd` → `/plan` → `springboot-tdd` → 빌트인 `/code-review` → 커밋.
-- 규칙(`.claude/rules/`): `java/*` (coding-style·patterns·security·testing).
+- 규칙(`.claude/rules/`): `common/code-review`, `java/*` (coding-style·patterns·security·testing).
 - ECC 등 외부 자산은 "시드"로만 가져와 정리해 쓰며 플러그인은 쓰지 않는다 (`docs/adr/0001`).
 
 ## 코딩 컨벤션
