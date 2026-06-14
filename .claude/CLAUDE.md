@@ -22,7 +22,8 @@
 - 반복/절차가 긴 작업만 `.claude/skills/<name>/SKILL.md` 스킬로 만든다.
   (단순히 Claude가 이미 잘 하는 동작은 스킬로 감싸지 않고, 컨벤션은 이 규칙에 둔다.)
 - 현재 스킬: `create-git-repo`, `springboot-tdd`, `springboot-patterns`.
-- 현재 커맨드(`.claude/commands/`): `plan-prd` (problem-first PRD → `docs/PRD.md`).
+- 현재 커맨드(`.claude/commands/`): `plan-prd` (PRD → `docs/PRD.md`), `plan` (마일스톤 구현 계획 → `docs/plans/`).
+- 워크플로: `/plan-prd` → `/plan` → `springboot-tdd` → 빌트인 `/code-review` → 커밋.
 - 규칙(`.claude/rules/`): `java/*` (coding-style·patterns·security·testing).
 - ECC 등 외부 자산은 "시드"로만 가져와 정리해 쓰며 플러그인은 쓰지 않는다 (`docs/adr/0001`).
 
