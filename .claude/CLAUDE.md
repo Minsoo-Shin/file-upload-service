@@ -21,7 +21,9 @@
 ## 하네스 (이 repo의 스킬)
 - 반복/절차가 긴 작업만 `.claude/skills/<name>/SKILL.md` 스킬로 만든다.
   (단순히 Claude가 이미 잘 하는 동작은 스킬로 감싸지 않고, 컨벤션은 이 규칙에 둔다.)
-- 현재: `create-git-repo` (git 초기화 + GitHub 원격 생성/푸시).
+- 현재 스킬: `create-git-repo`, `springboot-tdd`, `springboot-patterns`.
+- 규칙(`.claude/rules/`): `java/*` (coding-style·patterns·security·testing).
+- ECC 등 외부 자산은 "시드"로만 가져와 정리해 쓰며 플러그인은 쓰지 않는다 (`docs/adr/0001`).
 
 ## 코딩 컨벤션
 <!-- 언어/스타일 규칙을 단계 진행하며 직접 정의 -->
