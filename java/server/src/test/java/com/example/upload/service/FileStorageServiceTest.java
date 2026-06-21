@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FileStorageServiceTest {
@@ -33,6 +35,7 @@ class FileStorageServiceTest {
     void store_returnsMetadata_andDelegatesToStorage() throws IOException {
         byte[] body = "hello".getBytes(StandardCharsets.UTF_8);
         var file = new MockMultipartFile("file", "video.mp4", "video/mp4", body);
+        when(storage.store(any(), any(InputStream.class))).thenReturn((long) body.length);
 
         StoredFile result = service.store(file);
 
@@ -59,5 +62,28 @@ class FileStorageServiceTest {
 
         assertThatThrownBy(() -> service.store(file))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("스트리밍 저장: 기록된 바이트 수로 메타를 만들고 저장에 위임한다")
+    void storeStream_returnsMetadata_andDelegatesToStorage() throws IOException {
+        var content = new ByteArrayInputStream("hello".getBytes(StandardCharsets.UTF_8));
+        when(storage.store(any(), any(InputStream.class))).thenReturn(5L);
+
+        StoredFile result = service.store("a.bin", content);
+
+        assertThat(result.id()).isNotBlank();
+        assertThat(result.originalFilename()).isEqualTo("a.bin");
+        assertThat(result.size()).isEqualTo(5L);
+        verify(storage).store(eq(result.id()), any(InputStream.class));
+    }
+
+    @Test
+    @DisplayName("스트리밍 저장: path traversal 파일명은 거부한다")
+    void storeStream_rejectsTraversalFilename() {
+        var content = new ByteArrayInputStream("x".getBytes(StandardCharsets.UTF_8));
+
+        assertThatThrownBy(() -> service.store("../../etc/passwd", content))
+                .isInstanceOf(InvalidFilenameException.class);
     }
 }

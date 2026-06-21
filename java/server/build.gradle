@@ -24,5 +24,19 @@ dependencies {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform {
+		excludeTags 'memory'
+	}
+}
+
+// 메모리 안전 시연: 제한 힙(512m)에서 그보다 큰 스트림이 OOM 없이 저장되는지 확인.
+tasks.register('memoryTest', Test) {
+	description = '제한 힙에서 대용량 스트리밍 업로드가 OOM 없이 저장되는지 시연'
+	group = 'verification'
+	useJUnitPlatform {
+		includeTags 'memory'
+	}
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
+	maxHeapSize = '512m'
 }

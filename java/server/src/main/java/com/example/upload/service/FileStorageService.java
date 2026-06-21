@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 /**
@@ -20,18 +21,33 @@ public class FileStorageService {
         this.storage = storage;
     }
 
+    /** 멀티파트 업로드(M1). 공통 스트리밍 경로로 위임한다. */
     public StoredFile store(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Uploaded file is empty");
         }
-        String originalFilename = sanitize(file.getOriginalFilename());
+        return store(file.getOriginalFilename(), open(file));
+    }
+
+    /** 스트리밍 업로드(M2). 바디를 메모리에 통째로 올리지 않고 저장에 흘려보낸다. */
+    public StoredFile store(String filename, InputStream content) {
+        String originalFilename = sanitize(filename);
         String id = UUID.randomUUID().toString();
+        long size;
         try {
-            storage.store(id, file.getInputStream());
+            size = storage.store(id, content);
         } catch (IOException e) {
             throw new StorageException("Failed to store file: " + originalFilename, e);
         }
-        return new StoredFile(id, originalFilename, file.getSize());
+        return new StoredFile(id, originalFilename, size);
+    }
+
+    private static InputStream open(MultipartFile file) {
+        try {
+            return file.getInputStream();
+        } catch (IOException e) {
+            throw new StorageException("Failed to read uploaded file", e);
+        }
     }
 
     /**
