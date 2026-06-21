@@ -25,7 +25,7 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform {
-		excludeTags 'memory'
+		excludeTags 'memory', 'benchmark'
 	}
 }
 
@@ -39,4 +39,19 @@ tasks.register('memoryTest', Test) {
 	testClassesDirs = sourceSets.test.output.classesDirs
 	classpath = sourceSets.test.runtimeClasspath
 	maxHeapSize = '512m'
+}
+
+// 업로드 경로별 latency·peak 힙 벤치마크 (넉넉한 힙 2g로 메모리 보관 케이스도 완주).
+tasks.register('benchmarkTest', Test) {
+	description = '업로드 경로(스트리밍/멀티파트-디스크/멀티파트-메모리)의 latency·peak 힙 비교'
+	group = 'verification'
+	useJUnitPlatform {
+		includeTags 'benchmark'
+	}
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
+	maxHeapSize = '2g'
+	testLogging {
+		showStandardStreams = true
+	}
 }
