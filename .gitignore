@@ -15,8 +15,11 @@ dist/
 bin/
 
 # Local upload storage / runtime data
+# 주의: 소스 패키지 .../storage/ 와 충돌하지 않도록 src 하위는 제외하지 않는다.
 storage/
 uploads/
+!**/src/**/storage/
+!**/src/**/storage/**
 *.log
 .env
 .env.local
