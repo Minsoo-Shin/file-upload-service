@@ -65,7 +65,7 @@ We'll know we're right when:
 | # | Milestone | Outcome (사용자가 보는 변화) | Status | Devlog |
 |---|---|---|---|---|
 | 1 | 단일 업로드 (MVP) | 파일 하나를 올려 서버에 저장하고 결과(메타)를 받는다 | complete | [plan](plans/m1-single-upload.plan.md) · [devlog](devlog/01-single-upload.md) |
-| 2 | 스트리밍 저장 | 10GB도 서버 메모리 폭증 없이 저장된다 | pending | — |
+| 2 | 스트리밍 저장 | 10GB도 서버 메모리 폭증 없이 저장된다 | in-progress | [plan](plans/m2-streaming.plan.md) |
 | 3 | 검증 & 보안 | 과대 용량·위험 파일명 등 잘못된 파일을 거부한다 | pending | — |
 | 4 | 청크 업로드 | 큰 파일을 청크로 나눠 올리고 서버가 병합한다 | pending | — |
 | 5 | 재개 가능 | 끊긴 업로드를 누락 청크만 다시 올려 완료한다 | pending | — |
